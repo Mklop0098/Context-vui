@@ -1,38 +1,204 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
+  height: 100vh;
+  background-color: var(--background);
+}
+
+
+.warn {
+  background-color: var(--warn-background);
+  color: var(--warn-color);
+  border: 1px solid var(--warn-border);
+}
+
+.error {
+  background-color: var(--error-background);
+  color: var(--error-color);
+  border: 1px solid var(--error-border);
+}
+
+.success {
+  background-color: var(--success-background);
+  color: var(--success-color);
+  border: 1px solid var(--success-border);
+}
+
+.modal-style {
+  background-color: var(--modal-background);
+  color: var(--modal-color);
+  border: 1px solid var(--modal-border)
+}
+
+.toggle-btn {
+  width: auto;
+  height: 30px;
+  margin: 20px;
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+}
+
+.app__handler {
+  display: flex;
+  height: auto;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.app__btn { 
+  display: flex;
+  height: auto;
+}
+
+
+.btn__container {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 30px;
+  margin: 20px;
+  padding: 0 16px;
+  outline: none;;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 80px;
 }
 
-.App-link {
-  color: #61dafb;
+label {
+  color: var(--color);
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+  cursor: pointer;
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.hover-modal  {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+  align-items: flex-end;
+  margin-top: 30px;
+}
+
+.upload__btn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-site {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#upload-modal {
+  position: relative;
+}
+
+.upload__btn:hover {
+  background-color: var(--label-hover);
+  border-radius: 15px;
+
+}
+
+.hover-modal {
+  display: none;
+}
+
+
+.upload__img {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.upload__img:hover .hover-modal{
+  display: flex;
+}
+
+.upload__img > img {
+  width: 100%;
+  height: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+
+
+
+
+.upload-change__btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--success-background);
+  padding: 4px;
+  border-radius: 8px;
+  border: 2px solid var(--success-border);
+}
+
+.upload-change__btn > span {
+  padding-left: 12px;
+  color: var(--success-color);
+}
+
+
+.enlange__container {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.enlange-overlay {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;    
+  border: none;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.103);
+}
+
+
+.cancel-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px;
+}
+
+
+@keyframes scale-up {
+    0% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+    }
 }

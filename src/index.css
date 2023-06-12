@@ -11,3 +11,81 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+#root {
+  --button-background: #ede7f6;
+}
+
+
+.theme-dark {
+
+  --background:#212121f8;
+  --warn-background: #ff9800;
+  --warn-color: #ffff;
+  --warn-border: #ff9800;
+  --error-background: #f44336;
+  --error-color: #ffff;
+  --error-border: #f44336;
+  --success-background: #4caf50;
+  --success-color: #ffff;
+  --success-border: #4caf50;
+  --modal-background: #03a9f4;
+  --modal-color: #ffff;
+  --modal-border: #03a9f4;
+
+  --header-background: rgb(30 31 33);
+  --color: white;
+  --content-background: rgb(42 42 42);
+  --handler-background: rgb(30 31 33);
+  --label-hover: rgba(245, 245, 245, 0.096);
+
+}
+
+.theme-light {
+  --background: #ffff;
+  --warn-background: #ffff;
+  --warn-hover-background: #ff9800;
+  --error-hover-background: #f44336;
+  --success-hover-background: #4caf50;
+  --modal-hover-background: #03a9f4;
+  --label-hover: rgba(236, 236, 236, 0.993);
+  --warn-color: #ff9800;
+  --warn-border: #ff9800;
+  --error-background: #ffff;
+  --error-color: #f44336;
+  --error-border: #f44336;
+  --success-background: #ffff;
+  --success-color: #4caf50;
+  --success-border: #4caf50;
+  --modal-background: #ffff;
+  --modal-color: #03a9f4;
+  --modal-border: #03a9f4;
+
+  --header-background: rgb(230 230 230);
+  --color: black;
+  --content-background: white;
+  --handler-background: rgb(230 230 230);
+}
+
+
+#toast-root {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  --error-color: #f44336;
+  --warn-color: #ff9800;
+  --success-color: #4caf50;
+}
+
+#modal-root {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
