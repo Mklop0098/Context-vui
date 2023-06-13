@@ -20,7 +20,7 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
     const [filteredOption, setFilteredOption] = useState<string[]>(options);
     const [inputValue, setInputValue] = useState<string>('');
     const [currentOption, setCurrentOption] = useState(-1);
-
+    const ref = useRef<any>();
     const handleChange = (item: string) =>
     {
         handleDelete(item);
@@ -71,6 +71,27 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
         }
     }, []);
 
+    useEffect(() =>
+    {
+        const handleClickWrap = (e: MouseEvent) =>
+        {
+            const target = e.target;
+            if (!ref.current.contains(target))
+            {
+                setIsHidden(true);
+            }
+
+        };
+
+        document.addEventListener('click', (e) => handleClickWrap(e));
+        
+        return () =>
+        {
+            document.removeEventListener('click', (e) => handleClickWrap(e));
+        };
+    });
+
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) =>
     {
         switch (e.key)
@@ -105,6 +126,7 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
 
     return (
         <div
+            ref={ref}
             className='advance-select__container'
 
         >

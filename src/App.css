@@ -49,7 +49,9 @@
 
 .app__btn { 
   display: flex;
-  height: auto;
+  /* height: auto; */
+  flex-direction: row;
+  align-items: flex-start;
 }
 
 
