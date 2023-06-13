@@ -9,6 +9,7 @@ import { FaSun } from 'react-icons/fa';
 import { IoMoon } from 'react-icons/io5';
 import { useModal } from './contexts/ModalContext';
 import { UploadImage } from './components/UploadImage/UploadImage';
+import { AdvanceSelect } from './components/AdvanceSelect';
 
 function App(): ReactElement
 {
@@ -28,27 +29,67 @@ function App(): ReactElement
         });
     };
 
+    const handleChange = (data: string[]) =>
+    {
+        console.log(data);
+    };
+
+    const test: string[] = [
+        'hello',
+        'hi',
+        'ola',
+        
+    ];
+
     return (
         <div className="App">
             <div className='app__handler'>
                 <div className='app__btn'>
-                    <Button
-                        className='warn'
-                        text='warn'
-                        onClick={() => addToast({
-                            type: 'warn',
-                            message: 'This is warn message',
-                        })}
-                            
+                    <div>
+                        <Button
+                            className='warn'
+                            text='warn'
+                            onClick={() => addToast({
+                                type: 'warn',
+                                message: 'This is warn message',
+                            })}
+                        
+                        />
+                        <Button
+                            className='error'
+                            text='error'
+                            onClick={() => addToast({
+                                type: 'error',
+                                message: 'This is error message',
+                            })}
+                        
+                        />
+                        <Button
+                            className='success'
+                            text='success'
+                            onClick={() => addToast({
+                                type: 'success',
+                                message: 'This is success message',
+                            })}
+                        
+                        />
+                        <Button
+                            className='warn'
+                            text='Show modal'
+                            onClick={handleClick}
+                        />
+                        <UploadImage
+                            canEnlarge
+                        />
+                    </div>
+                    <AdvanceSelect
+                        disable={false}
+                        options={test}
+                        defaultValue='chao xin'
+                        multiple
+                        onChange={handleChange}
                     />
-                    <Button
-                        className='warn'
-                        text='Show modal'
-                        onClick={handleClick}
-                    />
-                    <UploadImage
-                        canEnlarge
-                    />
+
                 </div>
                 <div className='toggle-btn'>
                     {

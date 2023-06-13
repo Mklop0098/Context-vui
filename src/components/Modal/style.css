@@ -7,6 +7,8 @@
     background-color: var(--header-background);
     padding: 8px 12px;
     /* border: 2px solid var(--header-background); */
+    border-top-left-radius: 12px ;
+    border-top-right-radius: 12px ;
 
 }
 
@@ -37,6 +39,8 @@
     align-items: center;
     background-color: var(--header-background);
     padding: 8px;
+    border-bottom-left-radius: 12px ;
+    border-bottom-right-radius: 12px ;
 }
 
 .model__handler--primary {
