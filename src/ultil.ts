@@ -1,4 +1,5 @@
 import React from 'react';
+import { OptionType } from './components/AdvanceSelect';
 
 
 export const getBase64 = (file: any) =>
@@ -16,3 +17,18 @@ export const getBase64 = (file: any) =>
     });
 };
 
+export const getListValue = (defaultList: number[], options: OptionType[]): OptionType[] =>
+{
+    const result: OptionType[] = [];
+    defaultList.map(id =>
+    {
+        options.map(options =>
+        {
+            if (+options.id === id)
+            {
+                result.push(options);
+            }
+        });
+    });
+    return result;
+};

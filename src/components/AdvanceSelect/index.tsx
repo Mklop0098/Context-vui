@@ -1,84 +1,102 @@
 import { AiOutlineCheck } from 'react-icons/ai';
 import './style.css';
 import { useEffect, useRef, useState } from 'react';
+import { getListValue } from '../../ultil';
 
 type AdvanceSelectProps = {
-    disable: boolean,
-    multiple: boolean,
-    options: string[],
-    onChange: (data: string[]) => void,
-    defaultValue: string
+    disable?: boolean,
+    multiple?: boolean,
+    options: OptionType[],
+    defaultValue?: number[]
+
+    onChange?: (data: OptionType[]) => void,
 }
 
+export type OptionType = {
+    id: string,
+    label: string
+}
 
 export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
 {
-    const { disable, multiple, options, defaultValue } = props;
+    const { disable = false, multiple = false, options, defaultValue } = props;
     const { onChange } = props;
+
     const [isHidden, setIsHidden] = useState(true);
-    const [value, setValue] = useState<string[]>([]);
-    const [filteredOption, setFilteredOption] = useState<string[]>(options);
+    const [value, setValue] = useState<OptionType[]>([]);
+    const [filteredOption, setFilteredOption] = useState<OptionType[]>(options);
     const [inputValue, setInputValue] = useState<string>('');
-    const [currentOption, setCurrentOption] = useState(-1);
+    const [currentOption, setCurrentOption] = useState(0);
+
     const ref = useRef<any>();
-    const handleChange = (item: string) =>
+
+    const handleChange = (item: OptionType) =>
     {
-        handleDelete(item);
-        multiple ? !value.includes(item) && setValue([...value, item]) : setValue([item]);
-        setIsHidden(!isHidden);
+
+        if (item)
+        {
+            handleDelete(item);
+        }
+        if (multiple)
+        {
+            !(value.filter(i => i.id === item.id).length > 0) &&
+            setValue([...value, item]);
+        }
+        else {setValue([item]);}
+        
+        setIsHidden(true);
         setInputValue('');
-        setCurrentOption(-1);
+        setCurrentOption(0);
     };
 
-    const handleDelete = (option: string) =>
+
+    const handleDelete = (option: OptionType) =>
     {
-        setValue(value.filter(item => item !== option));
-        setCurrentOption(-1);
+        setValue(value.filter(item => item.id !== option.id));
+        setCurrentOption(0);
 
     };
 
     const handleFocus = () =>
     {
-        setIsHidden(!isHidden);
-        setCurrentOption(-1);
+        setIsHidden(false);
+        setCurrentOption(0);
 
     };
 
     const handleClearValue = () =>
     {
         setValue([]);
-        setIsHidden(!isHidden);
+        setIsHidden(true);
         setInputValue('');
     };
 
     useEffect(() =>
     {
-        setFilteredOption(options.filter(item => !item.indexOf(inputValue)));
+        setFilteredOption(options.filter(item => !item.label.indexOf(inputValue)));
     }, [inputValue, options]);
 
     useEffect(() =>
     {
-        onChange(value);
+        onChange && onChange(value);
 
-    }, [value]);
+    }, [onChange, value]);
+
 
     useEffect(() =>
     {
         if (defaultValue)
         {
-            setValue([defaultValue]);
-            multiple && setFilteredOption([...filteredOption, defaultValue]);
+            multiple ? setValue(getListValue(defaultValue, options)) : setValue((getListValue([defaultValue[0]], options)));
         }
-    }, []);
-
-    useEffect(() =>
-    {
         const handleClickWrap = (e: MouseEvent) =>
         {
             const target = e.target;
             if (!ref.current.contains(target))
             {
                 setIsHidden(true);
+                setInputValue('');
+
             }
 
         };
@@ -89,7 +107,7 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
         {
             document.removeEventListener('click', (e) => handleClickWrap(e));
         };
-    });
+    }, []);
 
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) =>
@@ -107,72 +125,88 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
                 break;
             
             case 'Enter':
-                if (currentOption !== -1)
+                if (currentOption >= 0 && currentOption <= filteredOption.length - 1)
                 {
                     handleDelete(filteredOption[currentOption]);
-                    multiple
-                        ? !value.includes(filteredOption[currentOption]) &&
-                        setValue([...value, filteredOption[currentOption]])
-                        : setValue([filteredOption[currentOption]]);
-                    setInputValue('');
+                    if (multiple)
+                    {
+                        !value.includes(filteredOption[currentOption]) &&
+                        setValue([...value, filteredOption[currentOption]]);
+                    }
+                    else {setValue([filteredOption[currentOption]]);}
                 }
                 break;
             
             case 'Backspace':
-                if (inputValue === '') {setValue(value.filter(item => item !== value[value.length - 1]));}
+                if (inputValue === '') {!disable && setValue(value.filter(item => item !== value[value.length - 1]));}
+                break;
         }
     };
 
+    console.log(currentOption);
 
     return (
         <div
             ref={ref}
             className='advance-select__container'
-
         >
-            <div
-                className='advance-select__wrapper'
-                tabIndex={0}
-                onKeyDown={e => handleKeyDown(e)}
-            >
-                <div className='advance-select__value'>
-                    {
-                        multiple
-                            ? value.map((item, key) => (
-                                <div
-                                    key={key}
-                                    className='value-option'
-                                >
-                                    <div>{item}</div>
-
-                                    <i
-                                        className="fa-solid fa-xmark"
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => handleDelete(item)}
-                                    />
-                                </div>
-                            ))
-                            : <span>{value.length > 0 && value[0]}</span>
-                    }
-                </div>
-                <input
-                    type="text"
-                    placeholder={value.length === 0 ? 'Please Choose!' : ''}
-                    className='advance-select__search'
-                    autoComplete='off'
-                    disabled={disable}
-                    value={inputValue}
-                    onChange={e => setInputValue(e.target.value)}
+            <div>
+                <div
+                    className={`advance-select__wrapper ${disable && 'disabled'}`}
+                    tabIndex={0}
+                    onKeyDown={e => handleKeyDown(e)}
                     onFocus={handleFocus}
-                />
-                {
-                    <i
-                        className="fa-solid fa-xmark"
-                        style={{ color: 'var(--color)', cursor: 'pointer' }}
-                        onClick={handleClearValue}
 
-                    />
-                }
+                    
+                >
+                    <div className='advance-select__value'>
+                        {
+                            multiple
+                                ? value.map((item, key) => (
+                                    <div
+                                        key={key}
+                                        className='value-option'
+                                    >
+                                        
+                                        <div>{item.label}</div>
+                                        {
+                                            !disable && (
+                                                <div
+                                                    className='value-option__icon'
+                                                >
+                                                    <i
+                                                        className="fa-solid fa-xmark"
+                                                        style={{ cursor: 'pointer', paddingLeft: '16px', fontSize: '12px' }}
+                                                        onClick={() => handleDelete(item)}
+                                                    />
+                                                </div>
+                                            )
+                                        }
+                                     
+                                    </div>
+                                ))
+                                : <span>{value.length > 0 && value[0].label}</span>
+                        }
+                    </div>
+                    <div
+                        className='input-bar'
+                    >
+                        <input
+                            type="text"
+                            placeholder={value.length === 0 ? 'Please Choose!' : ''}
+                            className='advance-select__search'
+                            autoComplete='off'
+                            value={inputValue}
+                            onChange={e => setInputValue(e.target.value)}
+                        />
+                        <i
+                            tabIndex={10}
+                            className="fa-solid fa-xmark"
+                            style={{ color: 'var(--color)', cursor: 'pointer' }}
+                            onClick={handleClearValue}
+                        />
+                    </div>
+                </div>
             </div>
             <ul
                 className="advance-select__option"
@@ -189,14 +223,19 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
                                 onClick={() => handleChange(item)}
                         
                             >
-                                {value.includes(item) && (
-                                    <AiOutlineCheck
-                                        style={{ paddingRight: '10px' }}
-                                        color='var(--modal-color)'
+                                <div className={`${value.length > 0 && 'checked'} `}>
+                                    {
+                                        (value.filter(i => i.id === item.id).length > 0) && (
+                                            <AiOutlineCheck
+                                                style={{ paddingRight: '10px', width: '100%' }}
+                                                color='var(--modal-color)'
+                                            />
+                                        )
+                                    }
+                                </div>
+                                    
 
-                                    />
-                                )}
-                                <span style={{ color: 'var(--color)' }}>{item}</span>
+                                <span style={{ color: 'var(--color)', flex: '1' }}>{item.label}</span>
                             </li>
                         ))
                 }

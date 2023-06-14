@@ -18,7 +18,6 @@ export const Toast:React.FC<ToastProps> = (props) =>
     const { id, type, message } = props;
     const { removeToast } = useToast();
 
-    console.log(props);
 
     useEffect(() =>
     {

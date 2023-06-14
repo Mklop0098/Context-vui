@@ -41,6 +41,8 @@ code {
   --label-hover: rgba(245, 245, 245, 0.096);
   --dropdown-color: rgb(50 51 53);
   --dropdown-hover: rgb(62 63 65);
+  --dropdown-choose: rgb(77, 79, 82);
+
   --dropdown-outline: #03a9f4;
 
 
@@ -73,6 +75,8 @@ code {
   --dropdown-color: white;
   --dropdown-outline: #03a9f4;
   --dropdown-hover: rgb(231, 231, 231);
+  --dropdown-choose: rgb(245, 245, 245);
+
 }
 
 

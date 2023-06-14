@@ -20,7 +20,6 @@ export const Modal:React.FC<ModalProps> = (props) =>
     const { root, toggle, title, body, footer, width, height, type } = props;
     const { onClick } = props;
 
-    console.log(title === undefined ? true : false);
 
     if (toggle && root)
     {

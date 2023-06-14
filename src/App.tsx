@@ -9,7 +9,7 @@ import { FaSun } from 'react-icons/fa';
 import { IoMoon } from 'react-icons/io5';
 import { useModal } from './contexts/ModalContext';
 import { UploadImage } from './components/UploadImage/UploadImage';
-import { AdvanceSelect } from './components/AdvanceSelect';
+import { AdvanceSelect, OptionType } from './components/AdvanceSelect';
 
 function App(): ReactElement
 {
@@ -29,16 +29,37 @@ function App(): ReactElement
         });
     };
 
-    const handleChange = (data: string[]) =>
+    const handleChange = (data: OptionType[]) =>
     {
-        console.log(data);
+        (data);
     };
 
-    const test: string[] = [
-        'hello',
-        'hi',
-        'ola',
-        
+    const test: OptionType[] = [
+        {
+            id: '0',
+            label: 'hello',
+        },
+        {
+            id: '1',
+            label: 'hi',
+        },
+        {
+            id: '2',
+            label: 'ola',
+        },
+        {
+            id: '3',
+            label: 'hello',
+        },
+        {
+            id: '4',
+            label: 'hi',
+        },
+        {
+            id: '5',
+            label: 'xin chao tat ca cac ban xin chao tat ca cac ban xin chao tat ca cac ban xin chao tat ca cac ban xinsasdawa cac dwawdawdddddddddddd xin chao tat ca cac ban',
+        },
+
     ];
 
     return (
@@ -83,9 +104,9 @@ function App(): ReactElement
                         />
                     </div>
                     <AdvanceSelect
-                        disable={false}
                         options={test}
-                        defaultValue='chao xin'
+                        defaultValue={[1, 2]}
+                        // disable
                         multiple
                         onChange={handleChange}
                     />
