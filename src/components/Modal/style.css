@@ -6,7 +6,6 @@
     height: 30px;
     background-color: var(--header-background);
     padding: 8px 12px;
-    /* border: 2px solid var(--header-background); */
     border-top-left-radius: 12px ;
     border-top-right-radius: 12px ;
 
@@ -24,14 +23,9 @@
     justify-content: center;
     align-items: center;
     background-color: var(--content-background);
-    /* border: 2px solid var(--header-background); */
     color: var(--color);
 }
 
-.modal-block__footer {
-    /* border: 2px solid var(--header-background); */
-
-}
 
 .modal__handler {
     display: flex;

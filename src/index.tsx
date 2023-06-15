@@ -6,18 +6,21 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeContextProvider } from './contexts/ThemeContext';
 import { ToastContextProvider } from './contexts/ToastContext';
 import { ModalContextProvider } from './contexts/ModalContext';
+import { LanguageContextProvider } from './contexts/LanguageContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 root.render(
-    <ThemeContextProvider>
-        <ToastContextProvider>
-            <ModalContextProvider>
-                <App />
-            </ModalContextProvider>
-        </ToastContextProvider>
-    </ThemeContextProvider>,
+    <LanguageContextProvider>
+        <ThemeContextProvider>
+            <ToastContextProvider>
+                <ModalContextProvider>
+                    <App />
+                </ModalContextProvider>
+            </ToastContextProvider>
+        </ThemeContextProvider>,
+    </LanguageContextProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -2,6 +2,7 @@
 import './style.css';
 import { MdCancel } from 'react-icons/md';
 import ReactDOM from 'react-dom';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 type ModalProps = {
     root: string,
@@ -19,7 +20,7 @@ export const Modal:React.FC<ModalProps> = (props) =>
 {
     const { root, toggle, title, body, footer, width, height, type } = props;
     const { onClick } = props;
-
+    const { t } = useLanguage();
 
     if (toggle && root)
     {
@@ -43,7 +44,7 @@ export const Modal:React.FC<ModalProps> = (props) =>
                                 className='modal-block__header'
                                 
                             >
-                                <span>{title}</span>
+                                <span>{`${t('tiêu đề')} : ${title}`}</span>
                                 <MdCancel
                                     color='var(--color)'
                                     onClick={onClick}

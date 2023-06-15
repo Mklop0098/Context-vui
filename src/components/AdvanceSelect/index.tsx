@@ -2,6 +2,8 @@ import { AiOutlineCheck } from 'react-icons/ai';
 import './style.css';
 import { useEffect, useRef, useState } from 'react';
 import { getListValue } from '../../ultil';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
 type AdvanceSelectProps = {
     disable?: boolean,
@@ -10,6 +12,7 @@ type AdvanceSelectProps = {
     defaultValue?: number[]
 
     onChange?: (data: OptionType[]) => void,
+    placeholder?: string,
 }
 
 export type OptionType = {
@@ -19,7 +22,7 @@ export type OptionType = {
 
 export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
 {
-    const { disable = false, multiple = false, options, defaultValue } = props;
+    const { disable = false, multiple = false, options, defaultValue, placeholder } = props;
     const { onChange } = props;
 
     const [isHidden, setIsHidden] = useState(true);
@@ -27,6 +30,8 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
     const [filteredOption, setFilteredOption] = useState<OptionType[]>(options);
     const [inputValue, setInputValue] = useState<string>('');
     const [currentOption, setCurrentOption] = useState(0);
+    
+    const { t } = useLanguage();
 
     const ref = useRef<any>();
 
@@ -46,14 +51,12 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
         
         setIsHidden(true);
         setInputValue('');
-        setCurrentOption(0);
     };
 
 
     const handleDelete = (option: OptionType) =>
     {
         setValue(value.filter(item => item.id !== option.id));
-        setCurrentOption(0);
 
     };
 
@@ -68,7 +71,7 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
     {
         setValue([]);
         setIsHidden(true);
-        setInputValue('');
+
     };
 
     useEffect(() =>
@@ -92,6 +95,7 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
         const handleClickWrap = (e: MouseEvent) =>
         {
             const target = e.target;
+
             if (!ref.current.contains(target))
             {
                 setIsHidden(true);
@@ -143,17 +147,18 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
         }
     };
 
-    console.log(currentOption);
+    console.log(isHidden);
 
     return (
         <div
             ref={ref}
             className='advance-select__container'
+            tabIndex={0}
+
         >
-            <div>
+            <div className='advance-select'>
                 <div
                     className={`advance-select__wrapper ${disable && 'disabled'}`}
-                    tabIndex={0}
                     onKeyDown={e => handleKeyDown(e)}
                     onFocus={handleFocus}
 
@@ -193,19 +198,27 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
                     >
                         <input
                             type="text"
-                            placeholder={value.length === 0 ? 'Please Choose!' : ''}
+                            placeholder={value.length === 0 ? `${placeholder ? placeholder : t('vui lòng chọn...')}` : ''}
                             className='advance-select__search'
                             autoComplete='off'
                             value={inputValue}
                             onChange={e => setInputValue(e.target.value)}
                         />
-                        <i
-                            tabIndex={10}
-                            className="fa-solid fa-xmark"
-                            style={{ color: 'var(--color)', cursor: 'pointer' }}
-                            onClick={handleClearValue}
-                        />
+                        
                     </div>
+                </div>
+
+                <div className='advance-select__handler'>
+                    {
+                        value.length > 0 && !disable && (
+                            <i
+                                className="fa-solid fa-xmark"
+                                style={{ color: 'var(--color)', cursor: 'pointer' }}
+                                onClick={handleClearValue}
+                            />
+                        )
+                    }
+                
                 </div>
             </div>
             <ul
@@ -214,7 +227,7 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
             >
                 {
                     filteredOption.length === 0
-                        ? <li style={{ color: 'var(--color)' }}>Không có dữ liệu</li>
+                        ? <li style={{ color: 'var(--color)' }}>{`${t('Không có dữ liệu')}`}</li>
                         : filteredOption.map((item, key) => (
                     
                             <li

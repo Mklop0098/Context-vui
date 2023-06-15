@@ -10,12 +10,16 @@ import { IoMoon } from 'react-icons/io5';
 import { useModal } from './contexts/ModalContext';
 import { UploadImage } from './components/UploadImage/UploadImage';
 import { AdvanceSelect, OptionType } from './components/AdvanceSelect';
+import { useLanguage } from './contexts/LanguageContext';
+import { flagIcon } from './data';
 
 function App(): ReactElement
 {
     const { addToast } = useToast();
     const { theme, setTheme } = useTheme();
     const { showModal } = useModal();
+    const { t, setCurrentLanguage, language } = useLanguage();
+
 
     const handleClick = () =>
     {
@@ -62,6 +66,10 @@ function App(): ReactElement
 
     ];
 
+    const languageTest = [
+        'VN', 'EN', 'CN', 'JP',
+    ];
+
     return (
         <div className="App">
             <div className='app__handler'>
@@ -69,7 +77,7 @@ function App(): ReactElement
                     <div>
                         <Button
                             className='warn'
-                            text='warn'
+                            text='cảnh báo'
                             onClick={() => addToast({
                                 type: 'warn',
                                 message: 'This is warn message',
@@ -78,7 +86,7 @@ function App(): ReactElement
                         />
                         <Button
                             className='error'
-                            text='error'
+                            text='lỗi'
                             onClick={() => addToast({
                                 type: 'error',
                                 message: 'This is error message',
@@ -87,7 +95,7 @@ function App(): ReactElement
                         />
                         <Button
                             className='success'
-                            text='success'
+                            text='thành công'
                             onClick={() => addToast({
                                 type: 'success',
                                 message: 'This is success message',
@@ -96,7 +104,7 @@ function App(): ReactElement
                         />
                         <Button
                             className='warn'
-                            text='Show modal'
+                            text='thông báo'
                             onClick={handleClick}
                         />
                         <UploadImage
@@ -105,11 +113,16 @@ function App(): ReactElement
                     </div>
                     <AdvanceSelect
                         options={test}
-                        defaultValue={[1, 2]}
-                        // disable
                         multiple
                         onChange={handleChange}
                     />
+
+
+                    <div style={{ color: 'var(--color)', padding: '25px' }}>
+                        
+                        {`${t('tiêu đề')}`}
+                        
+                    </div>
 
                 </div>
                 <div className='toggle-btn'>
@@ -130,7 +143,29 @@ function App(): ReactElement
                                 />
                             )
                     }
+                    <div className='language-option'>
+                        <img
+                            src={flagIcon[language as keyof Object] as unknown as string}
+                            alt=""
+                        />
+                        <select
+                            value={language}
+                            onChange={(e) => setCurrentLanguage(e.target.value)}
+                        >
+                            {
+                                languageTest.map((item, key) => (
+                                    <option
+                                        key={key}
+                                        className='language-option__select'
+                                        value={item}
+                                    >{item}
+                                    </option>
+                                ))
+                            }
+                        </select>
+                    </div>
                 </div>
+                
             </div>
             <ToastContainer />
         </div>
