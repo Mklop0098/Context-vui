@@ -1,0 +1,11 @@
+.advance-select-page {
+    padding: 20px 30px; 
+    display: flex;
+    justify-content: space-between;
+}
+
+.advance-actions {
+    flex: 1;
+    display: flex;
+    padding: 12px 20px;
+}

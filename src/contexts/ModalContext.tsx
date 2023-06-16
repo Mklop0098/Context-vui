@@ -24,13 +24,15 @@ export const ModalContextProvider: React.FC<PropsWithChildren> = (props) =>
     {
         setModal(modal);
     };
+
+    // console.log(modal.toggle);
     
     return (
         <ModalContext.Provider value={{ showModal, hideModal }}>
             {props.children}
             <Modal
                 toggle={modal.toggle}
-                root={'modal-root'}
+                root={modal.root || 'modal-root'}
                 title={modal.title || undefined}
                 body={modal.body}
                 footer={modal.footer || undefined}

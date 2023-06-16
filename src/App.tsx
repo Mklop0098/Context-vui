@@ -1,5 +1,5 @@
 
-import { ReactElement } from 'react';
+import { Fragment, ReactElement } from 'react';
 import './App.css';
 import { Button } from './components/Button';
 import { useToast } from './contexts/ToastContext';
@@ -12,13 +12,17 @@ import { UploadImage } from './components/UploadImage/UploadImage';
 import { AdvanceSelect, OptionType } from './components/AdvanceSelect';
 import { useLanguage } from './contexts/LanguageContext';
 import { flagIcon } from './data';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { publicRoutes } from './routes';
+import { DefaultLayout } from './components/Layout';
+
 
 function App(): ReactElement
 {
     const { addToast } = useToast();
     const { theme, setTheme } = useTheme();
     const { showModal } = useModal();
-    const { t, setCurrentLanguage, language } = useLanguage();
+    const { t, setCurrentLanguage, language, languageAvailable } = useLanguage();
 
 
     const handleClick = () =>
@@ -37,53 +41,41 @@ function App(): ReactElement
     {
         (data);
     };
-
-    const test: OptionType[] = [
-        {
-            id: '0',
-            label: 'hello',
-        },
-        {
-            id: '1',
-            label: 'hi',
-        },
-        {
-            id: '2',
-            label: 'ola',
-        },
-        {
-            id: '3',
-            label: 'hello',
-        },
-        {
-            id: '4',
-            label: 'hi',
-        },
-        {
-            id: '5',
-            label: 'xin chao tat ca cac ban xin chao tat ca cac ban xin chao tat ca cac ban xin chao tat ca cac ban xinsasdawa cac dwawdawdddddddddddd xin chao tat ca cac ban',
-        },
-
-    ];
-
-    const languageTest = [
-        'VN', 'EN', 'CN', 'JP',
-    ];
-
+    
+ 
     return (
-        <div className="App">
-            <div className='app__handler'>
+        <Router>
+            <div className="App">
+
+                <DefaultLayout>
+                    <Routes>
+                        {publicRoutes.map((route, index) =>
+                        {
+                            const Page = route.component;
+                            return (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    element={(
+                                        <Page />
+                                    )}
+                                />
+                            );
+                        })}
+                    </Routes>
+                </DefaultLayout>
+            </div>
+        </Router>
+
+    );
+}
+
+export default App;
+
+{/* <div className='app__handler'>
                 <div className='app__btn'>
                     <div>
-                        <Button
-                            className='warn'
-                            text='cảnh báo'
-                            onClick={() => addToast({
-                                type: 'warn',
-                                message: 'This is warn message',
-                            })}
                         
-                        />
                         <Button
                             className='error'
                             text='lỗi'
@@ -153,12 +145,12 @@ function App(): ReactElement
                             onChange={(e) => setCurrentLanguage(e.target.value)}
                         >
                             {
-                                languageTest.map((item, key) => (
+                                languageAvailable.map((item, key) => (
                                     <option
                                         key={key}
                                         className='language-option__select'
-                                        value={item}
-                                    >{item}
+                                        value={item.language}
+                                    >{item.language}
                                     </option>
                                 ))
                             }
@@ -167,9 +159,4 @@ function App(): ReactElement
                 </div>
                 
             </div>
-            <ToastContainer />
-        </div>
-    );
-}
-
-export default App;
+            <ToastContainer /> */}

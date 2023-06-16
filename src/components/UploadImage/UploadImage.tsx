@@ -87,6 +87,7 @@ export const UploadImage:React.FC<UploadImageProps> = (props) =>
             width: 60,
             height: 70,
             type: 'enlarge',
+            root: 'img-root',
         });
     };
 

@@ -19,8 +19,9 @@ code {
 
 
 .theme-dark {
-
-  --background:#212121f8;
+  --header-layout: rgb(19 47 76);
+  --left-modal-background: rgb(10 25 41);
+  --background: #0a1929;
   --warn-background: #ff9800;
   --warn-color: #ffff;
   --warn-border: #ff9800;
@@ -44,12 +45,12 @@ code {
   --dropdown-choose: rgb(77, 79, 82);
 
   --dropdown-outline: #03a9f4;
-
-
 }
 
 .theme-light {
   --background: #ffff;
+  --left-modal-background: rgb(255, 255, 255);
+  --header-layout: #d8e9fc;
   --warn-background: #ffff;
   --warn-hover-background: #ff9800;
   --error-hover-background: #f44336;
@@ -98,5 +99,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  /* height: 100vh; */
 
 }

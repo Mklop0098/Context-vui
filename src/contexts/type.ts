@@ -10,7 +10,8 @@ export type ModalType = {
     toggle: boolean,
     width?: number,
     height?: number,
-    type?: string
+    type?: string,
+    root?: string
 };
 
 export type ThemeContextRetrun ={

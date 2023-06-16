@@ -1,5 +1,4 @@
-{
-    "EN": {
+    {
         "tiêu đề": "title",
         "cảnh báo": "warn",
         "lỗi": "error",
@@ -7,24 +6,5 @@
         "thông báo": "show modal",
         "vui lòng chọn..." : "please choose...",
         "không có dữ liệu": "no data"
-    },
-    "CN": {
-        "tiêu đề": "标题",
-        "cảnh báo": "警告",
-        "lỗi": "错误",
-        "thành công": "成功",
-        "thông báo": "通知",
-        "vui lòng chọn..." : " 请选择...",
-        "không có dữ liệu": "没有数据"
-
-    },
-    "JP": {
-        "tiêu đề": "タイトル",
-        "cảnh báo": "警告",
-        "lỗi": "エラー",
-        "thành công": "成功",
-        "thông báo": "通知",
-        "vui lòng chọn..." : "選んでください...",
-        "không có dữ liệu": "データなし"
     }
-}
+    

@@ -1,0 +1,4 @@
+.toast-page__container {
+    display: flex;
+    flex-direction: row;
+}

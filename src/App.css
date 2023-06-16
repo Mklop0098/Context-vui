@@ -1,11 +1,17 @@
 .App {
   display: flex;
-  justify-content: space-between;
-  flex-direction: column;
+  flex-direction: row;
+  font-family: 'Nunito Sans', sans-serif;
+  overflow: hidden;
+  /* height: 100vh; */
+  /* width: 100vw; */
   height: 100vh;
-  background-color: var(--background);
 }
 
+a {
+  text-decoration: none;
+  color: var(--color);
+}
 
 .warn {
   background-color: var(--warn-background);
@@ -208,8 +214,11 @@ select {
   outline: none;
   appearance: none;
   border: none;
-  width: 40px;
+  width: 100px;
   cursor: pointer;
+  height: 30px;
+  background-color: var(--left-modal-background);
+  color: var(--color)
 }
 
 .language-option {
@@ -225,4 +234,9 @@ select {
   margin-right: 10px;
   border-radius: 100%;
   overflow: hidden;
+}
+
+a {
+  display: flex;
+  align-items: center;
 }
