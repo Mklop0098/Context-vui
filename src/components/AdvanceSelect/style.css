@@ -1,5 +1,4 @@
 .advance-select__search {
-    min-width: 20%;
     height: 100%;
     border: none;
     outline: none;
@@ -7,6 +6,7 @@
     background-color: var(--background);
     color: var(--color);
     flex: 1;
+    width: 100%;
 }
 input {
     padding: 0;
@@ -21,16 +21,16 @@ input {
 .advance-select__container {
     margin: 20px 0;
     width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    height: 100%;
+    position: relative;
 
 }
 
 .advance-select__option {
     padding: 0;
     margin: 0;
+    position: absolute;
+    z-index: 100;
 }
 
 .advance-select__option > li {

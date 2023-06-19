@@ -5,18 +5,21 @@ import { MdCancel } from 'react-icons/md';
 import { styleToast } from '../../data';
 import { useToast } from '../../contexts/ToastContext';
 import { useEffect } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 type ToastProps = {
     id: number,
     type: string,
-    message: string
+    message: string,
+    slide?: boolean
 }
 
 
 export const Toast:React.FC<ToastProps> = (props) =>
 {
-    const { id, type, message } = props;
+    const { id, type, message, slide = false } = props;
     const { removeToast } = useToast();
+    const { t } = useLanguage();
 
 
     useEffect(() =>
@@ -28,10 +31,13 @@ export const Toast:React.FC<ToastProps> = (props) =>
     }, []);
 
     return (
-        <div className={`toast-type ${type + '-toast'}`}>
+        <div
+            className={`toast-type ${type + '-toast'}`}
+            style={{ animation: `${slide && 'slide-left 0.25s both'}` }}
+        >
             <div className='toast-type__content toast__type--appear'>
-                <i className={styleToast['warn']} />
-                <span>{message}</span>
+                <i className={styleToast[type as keyof Object] as unknown as string} />
+                <span>{`${t(message)}`}</span>
             </div>
             <div
                 className='close-btn'

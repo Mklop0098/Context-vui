@@ -17,7 +17,8 @@ type AdvanceSelectProps = {
 
 export type OptionType = {
     id: string,
-    label: string
+    label: string,
+    flag?: string
 }
 
 export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
@@ -85,33 +86,19 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
 
     }, [onChange, value]);
 
-
     useEffect(() =>
     {
-        if (defaultValue)
-        {
-            multiple ? setValue(getListValue(defaultValue, options)) : setValue((getListValue([defaultValue[0]], options)));
-        }
-        const handleClickWrap = (e: MouseEvent) =>
-        {
-            const target = e.target;
-
-            if (!ref.current.contains(target))
-            {
-                setIsHidden(true);
-                setInputValue('');
-
-            }
-
-        };
-
-        document.addEventListener('click', (e) => handleClickWrap(e));
-        
-        return () =>
-        {
-            document.removeEventListener('click', (e) => handleClickWrap(e));
-        };
+        if (defaultValue) {setValue(getListValue(defaultValue, options));}
     }, []);
+
+
+    const handleClickWrap = () =>
+    {
+
+        setIsHidden(true);
+        setInputValue('');
+
+    };
 
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) =>
@@ -147,14 +134,12 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
         }
     };
 
-    console.log(isHidden);
 
     return (
         <div
             ref={ref}
             className='advance-select__container'
-            tabIndex={0}
-
+            onBlur={handleClickWrap}
         >
             <div className='advance-select'>
                 <div
@@ -233,7 +218,7 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
                             <li
                                 key={key}
                                 className={`${item === filteredOption[currentOption] && 'current-option'}`}
-                                onClick={() => handleChange(item)}
+                                onMouseDown={() => handleChange(item)}
                         
                             >
                                 <div className={`${value.length > 0 && 'checked'} `}>

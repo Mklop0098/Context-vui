@@ -58,16 +58,54 @@
 .modal-content {
     width: 100%;
     height: 100%;
-    /* background-color: #03a9f4; */
-    position: absolute;
     top: 0;
     left: 0;
+  
 }
 
 .modal-overall {
     width: 100%;
     height: 100vh;
-    /* background-color: #066fa0; */
     background-color: rgba(110, 110, 110, 0.301);
 
 }
+
+.right-modal {
+    width: 300px;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+.right-modal__container {
+    background-color: var(--left-modal-background);
+    width: 100%;
+    animation: slide-right 0.5s ease;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+@keyframes slide-right {
+    0% {
+        transform: translateX(-200px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes scale-up-center {
+    0% {
+      -webkit-transform: scale(0.5);
+              transform: scale(0.5);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+  }

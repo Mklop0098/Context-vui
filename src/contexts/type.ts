@@ -5,13 +5,14 @@ export type ModalContextProviderReturn = {
 
 export type ModalType = {
     title?: string,
-    body: any,
+    body?: any,
     footer?: boolean,
     toggle: boolean,
     width?: number,
     height?: number,
     type?: string,
     root?: string
+    header?: boolean
 };
 
 export type ThemeContextRetrun ={

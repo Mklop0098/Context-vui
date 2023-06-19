@@ -12,12 +12,12 @@
     flex-direction: row;
     justify-content: space-between;
     width: 80%;
-    height: 60px;
+    height: 50px;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 6px;
     padding: 0 16px;
-    margin: 8px 0;
     animation: slide-left 0.25s both;
+    margin: 8px 0;
     box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.5);
 }
 
@@ -32,7 +32,7 @@
 }
 
 .toast-type--out {
-    animation: slide-out 0.5s both;
+    /* animation: slide-out 0.5s both; */
 }
 
 .toast-type__content {
@@ -43,12 +43,12 @@
 
 .toast-type__content > i{
     color: white;
-    font-size: 28px;
+    font-size: 20px;
 }
 
 .toast-type__content > span {
     padding-left: 20px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: default;
     color: white;
 }

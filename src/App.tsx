@@ -1,71 +1,37 @@
 
-import { Fragment, ReactElement } from 'react';
 import './App.css';
-import { Button } from './components/Button';
-import { useToast } from './contexts/ToastContext';
-import { ToastContainer } from './components/Toast/ToatContainer';
-import { useTheme } from './contexts/ThemeContext';
-import { FaSun } from 'react-icons/fa';
-import { IoMoon } from 'react-icons/io5';
-import { useModal } from './contexts/ModalContext';
-import { UploadImage } from './components/UploadImage/UploadImage';
-import { AdvanceSelect, OptionType } from './components/AdvanceSelect';
-import { useLanguage } from './contexts/LanguageContext';
-import { flagIcon } from './data';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { DefaultLayout } from './components/Layout';
+import { ReactElement, useEffect, useState } from 'react';
 
 
 function App(): ReactElement
 {
-    const { addToast } = useToast();
-    const { theme, setTheme } = useTheme();
-    const { showModal } = useModal();
-    const { t, setCurrentLanguage, language, languageAvailable } = useLanguage();
 
-
-    const handleClick = () =>
-    {
-        showModal({
-            toggle: true,
-            body: 'xasd',
-            title: 'this is title',
-            footer: true,
-            width: 20,
-            height: 25,
-        });
-    };
-
-    const handleChange = (data: OptionType[]) =>
-    {
-        (data);
-    };
-    
- 
     return (
-        <Router>
-            <div className="App">
+        
+        <div className="App">
 
-                <DefaultLayout>
-                    <Routes>
-                        {publicRoutes.map((route, index) =>
-                        {
-                            const Page = route.component;
-                            return (
-                                <Route
-                                    key={index}
-                                    path={route.path}
-                                    element={(
-                                        <Page />
-                                    )}
-                                />
-                            );
-                        })}
-                    </Routes>
-                </DefaultLayout>
-            </div>
-        </Router>
+            <DefaultLayout>
+                <Routes>
+                    {publicRoutes.map((route, index) =>
+                    {
+                        const Page = route.component;
+                        return (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={(
+                                    <Page />
+                                )}
+                            />
+                        );
+                    })}
+                </Routes>
+            </DefaultLayout>
+        </div>
+        
 
     );
 }

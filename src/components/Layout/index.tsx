@@ -1,77 +1,50 @@
-import { PropsWithChildren, useRef, useState } from 'react';
-import { BsGearFill, BsPlus } from 'react-icons/bs';
+import { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import './style.css';
 import { Button } from '../Button';
 import { useModal } from '../../contexts/ModalContext';
-import { FaSun } from 'react-icons/fa';
-import { IoMoon } from 'react-icons/io5';
-import { useTheme } from '../../contexts/ThemeContext';
-import { flagIcon } from '../../data';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { MdOutlineArrowRight } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { LeftSite } from '../Modal/LeftSite';
+import { RightSite } from '../Modal/RightSite';
+import { BsGearFill } from 'react-icons/bs';
 
 export const DefaultLayout:React.FC<PropsWithChildren> = (props) =>
 {
     const { showModal, hideModal } = useModal();
-    // const [curren, setCurrent] = useState('VN');
-    const { theme, setTheme } = useTheme();
-    const { t, setCurrentLanguage, language, languageAvailable } = useLanguage();
-    const [toggle, setToggle] = useState(false);
+    const { t } = useLanguage();
+
+    useEffect(() =>
+    {
+        function handleWindowResize()
+        {
+            window.innerWidth > 1200 && hideModal();
+        }
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () =>
+        {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
 
     const handleClick = () =>
     {
-        console.log(language);
         showModal({
             toggle: true,
-            body: (
-                <div className='left-modal'>
-                    <div className='left-modal__container'>
-                        <div className='left-modal__header'>
-                            <span>Setting</span>
-                            <BsGearFill onClick={hideModal} />
+            body: <LeftSite />,
+                
+        });
+    };
 
-                        </div>
-                        <div className='list__header-state'>
-                            <span className='list__header'>Mode</span>
-                            <div className='mode-state'>
-                                <div className='mode-state__state'>
-                                    <FaSun
-                                        color='var(--dropdown-outline)'
-                                        fontSize={20}
-                                        onClick={() => {setTheme('theme-light');}}
-                                    />
-                                    <span>Light</span>
-                                </div>
-                                <div className='mode-state__state'>
-                                    <IoMoon
-                                        fontSize={20}
-                                        color='var(--dropdown-outline)'
-                                        onClick={() => setTheme('theme-dark')}
-                                    />
-                                    <span>Dark</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='list__header-state'>
-                            <span className='list__header'>Language</span>
-                            <select
-                                onChange={(e) => setCurrentLanguage(e.target.value)}
-                            >
-                                {
-                                    languageAvailable.map((item, key) => (
-                                        <option
-                                            key={key}
-                                            value={item.language}
-                                        >{item.language}
-                                        </option>
-                                    ))
-                                }
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            ),
+    const handleToggleMenu = () =>
+    {
+        showModal({
+            toggle: true,
+            body: <RightSite />,
+                
         });
     };
     return (
@@ -82,7 +55,7 @@ export const DefaultLayout:React.FC<PropsWithChildren> = (props) =>
                 </div>
                 <div className='components__list'>
                     <span className='list__header'>
-                        Components
+                        {`${t('THÀNH PHẦN')}`}
                     </span>
                     <ul className='list__content'>
                         
@@ -100,30 +73,10 @@ export const DefaultLayout:React.FC<PropsWithChildren> = (props) =>
                             <li>UploadImage</li>
                         </Link>
                         
-                        <li
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            onClick={() => setToggle(!toggle)}
-                        >
-                            <BsPlus />
-                            <span>AdvanceSelect</span>
-                        </li>
-                        <ul
-                            className='list__content sub-content'
-                            hidden={!toggle}
-                        >
-                            <Link to={'/select'}>
-                                <MdOutlineArrowRight />
-                                <li>Default</li>
-                            </Link>
-                            <Link to={'/select-disable'}>
-                                <MdOutlineArrowRight />
-                                <li>Disable</li>
-                            </Link>
-                            <Link to={'/select-multiple'}>
-                                <MdOutlineArrowRight />
-                                <li>Multiple</li>
-                            </Link>
-                        </ul>
+                        <Link to={'/select'}>
+                            <MdOutlineArrowRight />
+                            <li>AdvanceSelect</li>
+                        </Link>
                         
 
                     </ul>
@@ -132,17 +85,24 @@ export const DefaultLayout:React.FC<PropsWithChildren> = (props) =>
             <div className='component-detail'>
 
                 <div className='component__header'>
-                    <span className='component__header-icon'>
-                        HELLO
-                    </span>
-                    <Button
-                        className='error'
-                        text='option'
-                        onClick={handleClick}
-                    />
+                    <div className='component__header-icon'>
+                        <div
+                            className='menu-toggle'
+                            onClick={handleToggleMenu}
+                        >
+                            <GiHamburgerMenu />
+                        </div>
+                        <span>HELLO</span>
+                    </div>
+                    <div style={{ paddingRight: '20px', display: 'flex', alignItems: 'center' }}>
+                        <BsGearFill
+                            color='var(--color)'
+                            onClick={handleClick}
+                        />
+                    </div>
                     
                 </div>
-                {props.children}
+                <div className='children'>{props.children}</div>
 
             </div>
         </div>

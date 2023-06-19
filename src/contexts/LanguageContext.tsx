@@ -1,17 +1,13 @@
 import { PropsWithChildren, createContext, useContext, useState } from 'react';
+import { OptionType } from '../components/AdvanceSelect';
 
 
 type LanguageContextProviderReturn = {
     t: (text: string) => void,
-    setCurrentLanguage: (language: string) => void,
+    setCurrentLanguage: (language: OptionType) => void,
     language: string,
-    languageAvailable: LanguageAvailabeType[]
+    languageAvailable: OptionType[]
 };
-
-type LanguageAvailabeType = {
-    language: string,
-    flag: string
-}
 
 export const LanguageContext = createContext<LanguageContextProviderReturn>({} as LanguageContextProviderReturn);
 
@@ -25,21 +21,20 @@ export const LanguageContextProvider: React.FC<PropsWithChildren> = (props) =>
 {
     const [language, setLanguage] = useState<string>(localStorage.getItem('lang') || 'VN');
 
-    const languageAvailable: LanguageAvailabeType[] = [
+    const languageAvailable: OptionType[] = [
         {
-            language: 'VN',
+            id: '0',
+            label: 'VN',
             flag: 'https://viblo.asia/images/vi-flag-32x48.png',
         },
         {
-            language: 'EN',
+            id: '1',
+            label: 'EN',
             flag: 'https://viblo.asia/images/en-flag-32x48.png',
         },
         {
-            language: 'CN',
-            flag: 'https://viblo.asia/images/en-flag-32x48.png',
-        },
-        {
-            language: 'JP',
+            id: '2',
+            label: 'JP',
             flag: 'https://viblo.asia/images/en-flag-32x48.png',
         },
         
@@ -56,13 +51,13 @@ export const LanguageContextProvider: React.FC<PropsWithChildren> = (props) =>
         return text;
         
     };
-    console.log(language);
 
-    const setCurrentLanguage = (language: string) =>
+    const setCurrentLanguage = (language: OptionType) =>
     {
-        setLanguage(language);
+        setLanguage(languageAvailable[+language.id].label);
 
-        localStorage.setItem('lang', language);
+        localStorage.setItem('lang', languageAvailable[+language.id].label);
+
     };
 
     return (

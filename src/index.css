@@ -43,7 +43,7 @@ code {
   --dropdown-color: rgb(50 51 53);
   --dropdown-hover: rgb(62 63 65);
   --dropdown-choose: rgb(77, 79, 82);
-
+  --layout-span: #9999;
   --dropdown-outline: #03a9f4;
 }
 
@@ -68,6 +68,7 @@ code {
   --modal-background: #ffff;
   --modal-color: #03a9f4;
   --modal-border: #03a9f4;
+  --layout-span: #5c5c5c99;
 
   --header-background: rgb(230 230 230);
   --color: black;

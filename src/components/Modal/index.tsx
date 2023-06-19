@@ -3,26 +3,29 @@ import './style.css';
 import { MdCancel } from 'react-icons/md';
 import ReactDOM from 'react-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useModal } from '../../contexts/ModalContext';
 
 type ModalProps = {
     root: string,
     toggle: boolean,
     onClick: () => void,
     title?: string,
-    body: any,
+    body?: any,
     footer?: boolean,
     width: number,
     height: number,
-    type: string
+    type: string,
+    header?: boolean
 }
 
 export const Modal:React.FC<ModalProps> = (props) =>
 {
-    const { root, toggle, title, body, footer, width, height, type } = props;
+    const { root, toggle, title, body, footer = true, width, height, type, header = true } = props;
+    const { hideModal } = useModal();
     const { onClick } = props;
     const { t } = useLanguage();
 
-    console.log(toggle);
+    console.log(props);
 
     if (toggle && root)
     {
@@ -33,7 +36,41 @@ export const Modal:React.FC<ModalProps> = (props) =>
                     className='modal-overall'
                     onClick={onClick}
                 />
-                {body}
+                {
+                    body
+                        ? body
+                        : (
+                            <div className='modal-window'>
+                                <div className='modal-window__container'>
+                                    <div
+                                        className='modal-window__header'
+                                        hidden={!header}
+                                    >
+                                        <span>{`${t('Tiêu đề')}`}</span>
+                                    </div>
+                                    <div className='modal-window__body'>
+                                        <span>{`${t('Nội dung')}`}</span>
+                                    </div>
+                                    <div
+                                        className='modal-window__footer'
+                                        hidden={!footer}
+                                    >
+                                        <button
+                                            className='default'
+                                            onClick={hideModal}
+                                        >{`${t('Hủy')}`}
+                                        </button>
+                                        <button
+                                            className='primary'
+                                            onClick={hideModal}
+                                        >{`${t('Xác nhận')}`}
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                }
             </div>,
             el,
         );
@@ -42,54 +79,3 @@ export const Modal:React.FC<ModalProps> = (props) =>
 
     else {return <></>;}
 };
-
-
-// <div className='enlange__container'>
-//                 <div
-//                     className='enlange-overlay'
-//                     onClick={onClick}
-//                 />
-//                 <div
-//                     className="enlange-wrapper"
-//                     style={{ width: `${width}%`, height: `${height}%` }}
-//                 >
-//                     <div
-//                         className="enlange-picture"
-//                         style={{ width: `${width}%`, height: `${height}%`, padding: `${type === 'enlarge' && '12px'}` }}
-//                     >
-//                         <div hidden={title === undefined}>
-//                             <div
-//                                 className='modal-block__header'
-                                
-//                             >
-//                                 <span>{`${t('tiêu đề')} : ${title}`}</span>
-//                                 <MdCancel
-//                                     color='var(--color)'
-//                                     onClick={onClick}
-//                                 />
-//                             </div>
-//                         </div>
-//                         {
-//                             <div className='modal-block__body-block'>{body}</div>
-                    
-//                         }
-//                         <div
-//                             className='modal-block__footer'
-//                             hidden={footer === undefined || footer === false}
-//                         >
-//                             <div className='modal__handler'>
-//                                 <button
-//                                     className='modal__handler--default'
-//                                     onClick={onClick}
-//                                 >Cancel
-//                                 </button>
-//                                 <button
-//                                     className='model__handler--primary'
-//                                     onClick={onClick}
-//                                 >Confirm
-//                                 </button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>

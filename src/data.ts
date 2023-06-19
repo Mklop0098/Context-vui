@@ -1,13 +1,8 @@
 
 export const styleToast = {
     warn: 'fa-solid fa-triangle-exclamation',
-
-    // 'error': {
-    //     icon: 'fa-sharp fa-solid fa-circle-exclamation',
-    // },
-    // 'success': {
-    //     icon: 'fa-sharp fa-regular fa-circle-check',
-    // },
+    error: 'fa-sharp fa-solid fa-circle-exclamation',
+    success: 'fa-sharp fa-regular fa-circle-check'
 };
 
 export const flagIcon = {
