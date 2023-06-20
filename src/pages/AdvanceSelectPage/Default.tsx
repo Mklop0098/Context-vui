@@ -17,27 +17,23 @@ export const DefaultSelectPage = () =>
     const test: OptionType[] = [
         {
             id: '0',
-            label: 'hello',
+            label: 'Option 1',
         },
         {
             id: '1',
-            label: 'hi',
+            label: 'Option 2',
         },
         {
             id: '2',
-            label: 'ola',
+            label: 'Option 3',
         },
         {
             id: '3',
-            label: 'hello',
+            label: 'Option 4',
         },
         {
             id: '4',
-            label: 'hi',
-        },
-        {
-            id: '5',
-            label: 'xin chao tat ca cac ban xin chao tat ca cac ban xin chao tat ca cac ban xin chao tat ca cac ban xinsasdawa cac dwawdawdddddddddddd xin chao tat ca cac ban',
+            label: 'Option 5',
         },
 
     ];

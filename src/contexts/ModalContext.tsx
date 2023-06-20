@@ -24,8 +24,6 @@ export const ModalContextProvider: React.FC<PropsWithChildren> = (props) =>
     {
         setModal(modal);
     };
-
-    // console.log(modal.toggle);
     
     return (
         <ModalContext.Provider value={{ showModal, hideModal }}>
@@ -39,6 +37,7 @@ export const ModalContextProvider: React.FC<PropsWithChildren> = (props) =>
                 width={modal.width || 20}
                 height={modal.height || 25}
                 type={modal.type || 'notify'}
+                position={modal.position || 'center'}
                 onClick={hideModal}
             />
         </ModalContext.Provider>

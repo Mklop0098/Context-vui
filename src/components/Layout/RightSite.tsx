@@ -5,6 +5,7 @@ import { useModal } from '../../contexts/ModalContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Link } from 'react-router-dom';
 import { MdOutlineArrowRight } from 'react-icons/md';
+import { pages } from '../../data';
 
 
 export const RightSite = () =>
@@ -30,27 +31,17 @@ export const RightSite = () =>
                             className='list__content'
                             onClick={hideModal}
                         >
-                        
-                            <Link to={'/modal'}>
-                                <MdOutlineArrowRight />
-                                <li>Modal</li>
-                            </Link>
-                        
-                            <Link to={'/toast'}>
-                                <MdOutlineArrowRight />
-                                <li>Toast</li>
-                            </Link>
-                            <Link to={'/upload'}>
-                                <MdOutlineArrowRight />
-                                <li>UploadImage</li>
-                            </Link>
-                        
-                            <Link to={'/select'}>
-                                <MdOutlineArrowRight />
-                                <li>AdvanceSelect</li>
-                            </Link>
-                        
-
+                            {
+                                pages.map((page, key) => (
+                                    <Link
+                                        key={key}
+                                        to={page.link}
+                                    >
+                                        <MdOutlineArrowRight />
+                                        <li>{page.name}</li>
+                                    </Link>
+                                ))
+                            }
                         </ul>
                     </div>
                 </div>

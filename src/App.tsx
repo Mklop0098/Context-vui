@@ -1,9 +1,9 @@
 
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { DefaultLayout } from './components/Layout';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement } from 'react';
 
 
 function App(): ReactElement

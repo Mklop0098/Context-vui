@@ -1,19 +1,14 @@
-import { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import './style.css';
-import { Button } from '../Button';
 import { useModal } from '../../contexts/ModalContext';
-import { useLanguage } from '../../contexts/LanguageContext';
-import { MdOutlineArrowRight } from 'react-icons/md';
-import { Link } from 'react-router-dom';
-import { LeftSite } from '../Modal/LeftSite';
-import { RightSite } from '../Modal/RightSite';
+import { RightSite } from './RightSite';
 import { BsGearFill } from 'react-icons/bs';
+import { LeftSite } from './LeftSite';
 
 export const DefaultLayout:React.FC<PropsWithChildren> = (props) =>
 {
     const { showModal, hideModal } = useModal();
-    const { t } = useLanguage();
 
     useEffect(() =>
     {
@@ -35,7 +30,7 @@ export const DefaultLayout:React.FC<PropsWithChildren> = (props) =>
         showModal({
             toggle: true,
             body: <LeftSite />,
-                
+            position: 'left',
         });
     };
 
@@ -44,43 +39,14 @@ export const DefaultLayout:React.FC<PropsWithChildren> = (props) =>
         showModal({
             toggle: true,
             body: <RightSite />,
+            position: 'right',
                 
         });
     };
     return (
         <div className='layout-container'>
             <div className='components-container'>
-                <div className='components__header'>
-                    HELLO
-                </div>
-                <div className='components__list'>
-                    <span className='list__header'>
-                        {`${t('THÀNH PHẦN')}`}
-                    </span>
-                    <ul className='list__content'>
-                        
-                        <Link to={'/modal'}>
-                            <MdOutlineArrowRight />
-                            <li>Modal</li>
-                        </Link>
-                        
-                        <Link to={'/toast'}>
-                            <MdOutlineArrowRight />
-                            <li>Toast</li>
-                        </Link>
-                        <Link to={'/upload'}>
-                            <MdOutlineArrowRight />
-                            <li>UploadImage</li>
-                        </Link>
-                        
-                        <Link to={'/select'}>
-                            <MdOutlineArrowRight />
-                            <li>AdvanceSelect</li>
-                        </Link>
-                        
-
-                    </ul>
-                </div>
+                <RightSite />
             </div>
             <div className='component-detail'>
 
@@ -100,8 +66,8 @@ export const DefaultLayout:React.FC<PropsWithChildren> = (props) =>
                             onClick={handleClick}
                         />
                     </div>
-                    
                 </div>
+                
                 <div className='children'>{props.children}</div>
 
             </div>

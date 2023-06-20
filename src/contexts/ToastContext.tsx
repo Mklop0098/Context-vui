@@ -18,6 +18,7 @@ export const ToastContextProvider: React.FC<PropsWithChildren> = (props) =>
     {
         const toastId = Date.now();
         setToast([...toast, { id: toastId, ...newToast }]);
+       
     };
 
     const removeToast = (id: number) =>

@@ -1,8 +1,6 @@
 .advance-select-page {
     padding: 20px 30px; 
     color: var(--color);
-    height: max-content;
-    overflow-y: scroll;
 }
 
 .advance-actions {

@@ -11,3 +11,23 @@ export const flagIcon = {
     'CN': 'https://viblo.asia/images/en-flag-32x48.png',
     'JP': 'https://viblo.asia/images/en-flag-32x48.png',
 };
+
+
+export const pages = [
+    {
+        name: 'Modal',
+        link: '/modal',
+    },
+    {
+        name: 'Toast',
+        link: '/toast',
+    },
+    {
+        name: 'UploadImage',
+        link: '/upload',
+    },
+    {
+        name: 'AdvanceSelect',
+        link: '/select',
+    },
+];

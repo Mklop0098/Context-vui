@@ -1,5 +1,4 @@
 
-import { BsGearFill } from 'react-icons/bs';
 import './style.css';
 import { useModal } from '../../contexts/ModalContext';
 import { FaSun } from 'react-icons/fa';
@@ -20,6 +19,8 @@ export const LeftSite = () =>
         if (value.length > 0) {setCurrentLanguage(value[0]);}
     };
     
+    console.log(language);
+
     return (
         <div className='left-modal'>
             <div className='left-modal__container'>

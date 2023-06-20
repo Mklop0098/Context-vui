@@ -1,18 +1,12 @@
 .modal-window {
-    width: 300px;
-    height: 200px;
-    /* margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto; */
+    /* width: 300px;
+    height: 200px; */
     margin: auto;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     position: absolute;
-    /* background-color: blue; */
-    animation: scale-up-center 0.5s ease;
 }
 
 .modal-window__container {
@@ -84,5 +78,4 @@
 .modal-page {
     padding: 30px;
     color: var(--color);
-    height: 100%;
 }

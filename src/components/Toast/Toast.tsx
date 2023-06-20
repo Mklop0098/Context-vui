@@ -11,19 +11,18 @@ type ToastProps = {
     id: number,
     type: string,
     message: string,
-    slide?: boolean
 }
 
 
 export const Toast:React.FC<ToastProps> = (props) =>
 {
-    const { id, type, message, slide = false } = props;
+    const { id, type, message } = props;
     const { removeToast } = useToast();
     const { t } = useLanguage();
 
-
     useEffect(() =>
     {
+
         setTimeout(() =>
         {
             removeToast(id);
@@ -32,10 +31,9 @@ export const Toast:React.FC<ToastProps> = (props) =>
 
     return (
         <div
-            className={`toast-type ${type + '-toast'}`}
-            style={{ animation: `${slide && 'slide-left 0.25s both'}` }}
+            className={`toast-type ${type + '-toast'} slide-toast-left`}
         >
-            <div className='toast-type__content toast__type--appear'>
+            <div className='toast-type__content'>
                 <i className={styleToast[type as keyof Object] as unknown as string} />
                 <span>{`${t(message)}`}</span>
             </div>

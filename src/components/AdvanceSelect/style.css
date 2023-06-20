@@ -1,5 +1,5 @@
 .advance-select__search {
-    height: 100%;
+    /* height: 100%; */
     border: none;
     outline: none;
     font-size: 14px;
@@ -21,7 +21,7 @@ input {
 .advance-select__container {
     margin: 20px 0;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     position: relative;
 
 }

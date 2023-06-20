@@ -1,16 +1,13 @@
-import { BsGearFill } from 'react-icons/bs';
+
 import { Button } from '../../components/Button';
 import { useModal } from '../../contexts/ModalContext';
-import { useTheme } from '../../contexts/ThemeContext';
 import './style.css';
-import { useEffect, useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 export const ModalPage = () =>
 {
 
-    const { showModal, hideModal } = useModal();
-    const { theme, setTheme } = useTheme();
+    const { showModal } = useModal();
     const { t } = useLanguage();
 
 

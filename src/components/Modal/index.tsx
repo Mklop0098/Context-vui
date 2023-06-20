@@ -1,9 +1,9 @@
 
 import './style.css';
-import { MdCancel } from 'react-icons/md';
 import ReactDOM from 'react-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useModal } from '../../contexts/ModalContext';
+import { useRef } from 'react';
 
 type ModalProps = {
     root: string,
@@ -15,17 +15,82 @@ type ModalProps = {
     width: number,
     height: number,
     type: string,
-    header?: boolean
+    header?: boolean,
+    position?: string
 }
 
 export const Modal:React.FC<ModalProps> = (props) =>
 {
-    const { root, toggle, title, body, footer = true, width, height, type, header = true } = props;
-    const { hideModal } = useModal();
     const { onClick } = props;
+    const { root, toggle, title, body, footer = true, width, height, type, header = true, position } = props;
+    
+    const { hideModal } = useModal();
     const { t } = useLanguage();
 
-    console.log(props);
+    const ref = useRef<any>();
+    const leftRef = useRef<any>();
+    const rightRef = useRef<any>();
+
+
+    const handleHideModal = () =>
+    {
+        setTimeout(() =>
+        {
+            hideModal();
+
+        }, 230);
+        if (ref.current)
+        {
+            ref.current.classList.remove('scale-up');
+            ref.current.classList.add('scale-down');
+        }
+        if (leftRef.current)
+        {
+            leftRef.current.classList.remove('slide-modal-left');
+            leftRef.current.classList.add('slide-modal-right');
+        }
+        if (rightRef.current)
+        {
+            rightRef.current.classList.remove('slide-right-modal-right');
+            rightRef.current.classList.add('slide-right-modal-left');
+        }
+        
+       
+    };
+
+    const renderBody = (position: string) =>
+    {
+        switch (position)
+        {
+            case 'center': return (
+                <div
+                    ref={ref}
+                    className={'modal-window scale-up'}
+                    style={{ width: '60%', height: '60%' }}
+                >
+                    {body}
+                </div>
+            );
+
+            case 'left': return (
+                <div
+                    ref={leftRef}
+                    className={'body-container slide-modal-left'}
+                    style={{ right: '0' }}
+                >{body}
+                </div>
+            );
+
+            case 'right': return (
+                <div
+                    ref={rightRef}
+                    style={{ left: '0' }}
+                    className={'body-container slide-right-modal-right'}
+                >{body}
+                </div>
+            );
+        }
+    };
 
     if (toggle && root)
     {
@@ -34,13 +99,17 @@ export const Modal:React.FC<ModalProps> = (props) =>
             <div className='modal-content'>
                 <div
                     className='modal-overall'
-                    onClick={onClick}
+                    onClick={handleHideModal}
                 />
                 {
                     body
-                        ? body
+                        ? position && renderBody(position)
                         : (
-                            <div className='modal-window'>
+                            <div
+                                ref={ref}
+                                className={'modal-window scale-up'}
+                                style={{ width: '300px', height: '200px' }}
+                            >
                                 <div className='modal-window__container'>
                                     <div
                                         className='modal-window__header'
@@ -57,12 +126,12 @@ export const Modal:React.FC<ModalProps> = (props) =>
                                     >
                                         <button
                                             className='default'
-                                            onClick={hideModal}
+                                            onClick={handleHideModal}
                                         >{`${t('Hủy')}`}
                                         </button>
                                         <button
                                             className='primary'
-                                            onClick={hideModal}
+                                            onClick={onClick}
                                         >{`${t('Xác nhận')}`}
                                         </button>
 

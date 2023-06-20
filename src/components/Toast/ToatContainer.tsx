@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom';
 import './style.css';
 import { useToast } from '../../contexts/ToastContext';
 import { Toast } from './Toast';
+import { useEffect } from 'react';
 
 export const ToastContainer = () =>
 {
@@ -20,7 +21,8 @@ export const ToastContainer = () =>
                                     type={item.type}
                                     message={item.message}
                                 />
-                            )}
+                            )
+                        }
                     </>
                     
                 ))

@@ -3,7 +3,6 @@ import './style.css';
 import { useEffect, useRef, useState } from 'react';
 import { getListValue } from '../../ultil';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
 type AdvanceSelectProps = {
     disable?: boolean,
@@ -23,7 +22,7 @@ export type OptionType = {
 
 export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
 {
-    const { disable = false, multiple = false, options, defaultValue, placeholder } = props;
+    const { disable = false, multiple = false, options, defaultValue, placeholder = 'vui lòng chọn...' } = props;
     const { onChange } = props;
 
     const [isHidden, setIsHidden] = useState(true);
@@ -146,8 +145,6 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
                     className={`advance-select__wrapper ${disable && 'disabled'}`}
                     onKeyDown={e => handleKeyDown(e)}
                     onFocus={handleFocus}
-
-                    
                 >
                     <div className='advance-select__value'>
                         {
@@ -183,7 +180,7 @@ export const AdvanceSelect:React.FC<AdvanceSelectProps> = (props) =>
                     >
                         <input
                             type="text"
-                            placeholder={value.length === 0 ? `${placeholder ? placeholder : t('vui lòng chọn...')}` : ''}
+                            placeholder={value.length > 0 ? '' : `${t(placeholder)}`}
                             className='advance-select__search'
                             autoComplete='off'
                             value={inputValue}

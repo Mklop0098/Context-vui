@@ -11,8 +11,9 @@ export type ModalType = {
     width?: number,
     height?: number,
     type?: string,
-    root?: string
-    header?: boolean
+    root?: string,
+    header?: boolean,
+    position?: string
 };
 
 export type ThemeContextRetrun ={
